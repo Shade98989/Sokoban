@@ -15,6 +15,8 @@ class LevelLoader:
     def get_level_count(self):
         return len(self.__level_map)
 
+    def get_player(self):
+        return self.__level_map["level1.txt"].get_player()
     def get_level(self):
         return self.__level_map
 
@@ -51,24 +53,28 @@ class LevelLoader:
                 if char == 'p':
                     if player_found:
                         raise ValueError(f"Error: Multiple players found in {file_path} at line {y+1}.")
-                    player = Player(object_surface, images.PLAYER_LEFT,position)
-                    self.level_surface.blit(images.PLAYER_LEFT, position)
+                    rect = pygame.Rect(x * 50, y * 50, 50, 50)
+                    player = Player(object_surface, images.PLAYER_LEFT,rect)
+                    self.level_surface.blit(images.LAND, position)
                     player_found = True
 
                 elif char == 'b':
-                    box = Box(object_surface, images.BOX,position)
+                    rect = pygame.Rect(x * 50, y * 50, 50, 50)
+                    box = Box(object_surface, images.BOX,rect)
                     self.level_surface.blit(images.BOX, position)
                     movables.add(box)
                     box_count += 1
 
                 elif char == 's':
-                    spot = BoxSpot(object_surface, images.BOXSPOT,position)
+                    rect = pygame.Rect(x * 50, y * 50, 50, 50)
+                    spot = BoxSpot(object_surface, images.BOXSPOT,rect)
                     self.level_surface.blit(images.BOXSPOT, position)
                     boxspots.add(spot)
                     boxspot_count += 1
 
                 elif char == 'o':
-                    obstacle = PineTree(object_surface, images.PINETREE,position)
+                    rect = pygame.Rect(x * 50, y * 50, 50, 50)
+                    obstacle = PineTree(object_surface, images.PINETREE,rect)
                     self.level_surface.blit(images.PINETREE, position)
                     immovables.add(obstacle)
 

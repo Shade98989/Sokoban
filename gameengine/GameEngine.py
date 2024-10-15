@@ -11,43 +11,60 @@ class GameEngine:
         self.fps = fps
         self.level_loader = LevelLoader()
         self.level_surface = None
+        self.player = None
 
     def run(self):
+        images = ImageCollection()
+        images.load_images()
+
         pygame.init()
         game_display = pygame.display.set_mode((self.display_width, self.display_height))
 
-        # game name
+        # Game name
         game_name = "SokobanDaWish"
         pygame.display.set_caption(game_name)
 
-        # initialize game clock
+        # Initialize game clock
         clock = pygame.time.Clock()
 
-        # initialize white color
+        # Initialize white color
         white = (255, 255, 255)
 
-        # paint initial state of screen
-        game_display.fill(white)
-
-        # run game
-        # TODO
-
+        # Load the level and player
         self.level_surface = self.level_loader.load_levels()
+        self.player = self.level_loader.get_player()
 
-        game_display.blit(self.level_surface, (0, 0))
+        running = True
+        move_distance = 50
 
-        while True:
+        dir = True
+
+        while running:
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP or event.key == pygame.K_w:
-                        print("Move up")
+                        self.player._rectangle.y -= move_distance
                     elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                        print("Move down")
+                        self.player._rectangle.y += move_distance
                     elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                        print("Move left")
+                        self.player._rectangle.x -= move_distance
+                        dir = True
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                        print("Move right")
+                        dir = False
+                        self.player._rectangle.x += move_distance
+
+            game_display.blit(self.level_surface, (0, 0))
+
+            if dir:
+                game_display.blit(images.PLAYER_LEFT, self.player._rectangle)
+            else:
+                game_display.blit(images.PLAYER_RIGHT, self.player._rectangle)
+
             pygame.display.update()
+
             clock.tick(self.fps)
 
         pygame.quit()
