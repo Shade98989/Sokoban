@@ -37,14 +37,13 @@ class GameEngine:
         running = True
         move_distance = 50
 
-        dir = True
+        direction = True
 
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-                # Calculate new position based on input but don't move the player yet
                 new_x, new_y = self.player.rect.x, self.player.rect.y
 
                 if event.type == pygame.KEYDOWN:
@@ -54,31 +53,27 @@ class GameEngine:
                         new_y += move_distance
                     elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
                         new_x -= move_distance
-                        dir = True
+                        direction = True
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                         new_x += move_distance
-                        dir = False
+                        direction = False
 
-                # Create a new rectangle with the intended new position
                 new_rect = pygame.Rect(new_x, new_y, self.player.rect.width, self.player.rect.height)
 
-                # Check for collisions with immovable obstacles
                 obstacle_collision = False
-                level = self.level_loader.get_level()  # Get the specific level object
+                level = self.level_loader.get_level()
                 for obstacle in level.get_immovables():
-                    if new_rect.colliderect(obstacle.rect):  # Check if new position collides with any obstacle
+                    if new_rect.colliderect(obstacle.rect):
                         obstacle_collision = True
                         break
 
-                # Move the player if no collision is detected
                 if not obstacle_collision:
                     self.player.rect.x = new_x
                     self.player.rect.y = new_y
 
-            # Clear and redraw the level and player
             game_display.blit(self.level_surface, (0, 0))
 
-            if dir:
+            if direction:
                 game_display.blit(images.PLAYER_LEFT, self.player.rect)
             else:
                 game_display.blit(images.PLAYER_RIGHT, self.player.rect)
