@@ -17,8 +17,9 @@ class LevelLoader:
 
     def get_player(self):
         return self.__level_map["level1.txt"].get_player()
+
     def get_level(self):
-        return self.__level_map
+        return self.__level_map["level1.txt"]
 
     def __load_level(self, level):
         images = ImageCollection()
