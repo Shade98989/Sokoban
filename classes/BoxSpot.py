@@ -5,4 +5,4 @@ class BoxSpot(StepableObject):
     def __init__(self, surface: pygame.Surface, image: pygame.Surface, rectangle: pygame.Rect, contains_box: bool = False):
         super().__init__(surface, image, rectangle)
 
-        self._contains_box = contains_box
+        self.rect = rectangle

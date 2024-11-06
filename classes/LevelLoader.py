@@ -15,9 +15,6 @@ class LevelLoader:
     def get_level_count(self):
         return len(self.__level_map)
 
-    def get_player(self):
-        return self.__level_map["level1.txt"].get_player()
-
     def get_level(self):
         return self.__level_map["level1.txt"]
 
@@ -62,7 +59,7 @@ class LevelLoader:
                 elif char == 'b':
                     rect = pygame.Rect(x * 50, y * 50, 50, 50)
                     box = Box(object_surface, images.BOX,rect)
-                    self.level_surface.blit(images.BOX, position)
+                    self.level_surface.blit(images.LAND, position)
                     movables.add(box)
                     box_count += 1
 
