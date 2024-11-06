@@ -120,6 +120,10 @@ class GameEngine:
                                     box_blocked = True
                                     break
 
+                            if not (0 <= box_new_x < 500 and 0 <= box_new_y < 500):
+                                obstacle_collision = True
+                                break
+
                             for other_box in level.get_movables():
                                 if other_box != box and new_box_rect.colliderect(other_box.rect):
                                     box_blocked = True
@@ -132,11 +136,12 @@ class GameEngine:
                                 obstacle_collision = True
 
                     if not obstacle_collision:
-                        level.get_player().rect.x = new_x
-                        level.get_player().rect.y = new_y
+                        if 0 <= new_x < 500 and 0 <= new_y < 500:
+                            level.get_player().rect.x = new_x
+                            level.get_player().rect.y = new_y
 
-                        if (level.get_player().rect.x, level.get_player().rect.y) != (player_initial_x, player_initial_y):
-                            self.moves += 1
+                            if (level.get_player().rect.x, level.get_player().rect.y) != (player_initial_x, player_initial_y):
+                                self.moves += 1
 
                 game_display.blit(self.level_surface, (0, 0))
 
