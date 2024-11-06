@@ -1,2 +1,2 @@
-moves: 15
-time: 2 seconds
+moves: 25
+time: 6 seconds
