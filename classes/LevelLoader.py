@@ -66,6 +66,7 @@ class LevelLoader:
                 elif char == 's':
                     rect = pygame.Rect(x * 50, y * 50, 50, 50)
                     spot = BoxSpot(object_surface, images.BOXSPOT,rect)
+                    self.level_surface.blit(images.LAND, position)
                     self.level_surface.blit(images.BOXSPOT, position)
                     boxspots.add(spot)
                     boxspot_count += 1
