@@ -1,2 +1,2 @@
 moves: 15
-time: 3 seconds
+time: 4 seconds

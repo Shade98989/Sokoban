@@ -1,10 +1,11 @@
 oooooooooo
-osb______o
-osb______o
-o_oooooo_o
-o________o
-op_______o
 o________o
 o________o
+o__sp__so
+o___o____o
+o__b___b_o
+o__o_____o
+o___s____o
 o________o
 oooooooooo
+
