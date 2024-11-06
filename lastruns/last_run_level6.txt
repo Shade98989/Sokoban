@@ -1,0 +1,2 @@
+moves: 25
+time: 7 seconds
