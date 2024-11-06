@@ -1,4 +1,4 @@
-import pygame, os
+import pygame
 from classes.Player import Player
 from classes.PineTree import PineTree
 from classes.Box import Box
@@ -15,8 +15,8 @@ class LevelLoader:
     def get_level_count(self):
         return len(self.__level_map)
 
-    def get_level(self):
-        return self.__level_map["level1.txt"]
+    def get_level(self, level):
+        return self.__level_map[level]
 
     def __load_level(self, level):
         images = ImageCollection()
@@ -93,8 +93,6 @@ class LevelLoader:
 
         self.__level_map[level] = Level(player, immovables, movables, boxspots)
 
-    def load_levels(self):
-        levels = os.listdir("collections")
-        for level in levels:
-            self.__load_level(level)
+    def load_levels(self, level):
+        self.__load_level(level)
         return self.level_surface
